@@ -16,8 +16,8 @@ public class TorpedoStore {
 
   private final Random random = new Random();
 
-  public TorpedoStore(int numberOfTorpedos){
-    this.torpedoCount = numberOfTorpedos;
+  public TorpedoStore(int numberOfTorpedoes){
+    this.torpedoCount = numberOfTorpedoes;
 
     // update failure rate if it was specified in an environment variable
     String failureEnv = System.getenv("IVT_RATE");
@@ -30,9 +30,9 @@ public class TorpedoStore {
     }
   }
 
-  public boolean fire(int numberOfTorpedos){
-    if(numberOfTorpedos < 1 || numberOfTorpedos > this.torpedoCount){
-      throw new IllegalArgumentException("numberOfTorpedos");
+  public boolean fire(int numberOfTorpedoes){
+    if(numberOfTorpedoes < 1 || numberOfTorpedoes > this.torpedoCount){
+      throw new IllegalArgumentException("The number of torpedoes to fire must be at least one and cannot be more than the currently stored number of torpedoes.");
     }
 
     boolean success = false;
@@ -42,7 +42,7 @@ public class TorpedoStore {
 
     if (r >= FAILURE_RATE) {
       // successful firing
-      this.torpedoCount -= numberOfTorpedos;
+      this.torpedoCount -= numberOfTorpedoes;
       success = true;
     } else {
       // simulated failure
