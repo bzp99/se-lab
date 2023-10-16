@@ -40,8 +40,8 @@ public class CommandLineInterface {
         err.println("Welcome to the console interface.  Available commands: " + handlers.keySet().toString());
         try (Scanner scanner = new Scanner(in)) {
             boolean shouldContinue = true;
-            err.print("> ");
             while (shouldContinue && scanner.hasNextLine()) {
+                err.print("> ");
                 shouldContinue = handle(ctx, scanner.nextLine());
             }
         }
