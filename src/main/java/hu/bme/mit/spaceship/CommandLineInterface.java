@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.BiFunction;
 
@@ -40,10 +41,14 @@ public class CommandLineInterface {
         err.println("Welcome to the console interface.  Available commands: " + handlers.keySet().toString());
         try (Scanner scanner = new Scanner(in)) {
             boolean shouldContinue = true;
-            while (shouldContinue && scanner.hasNextLine()) {
+            do {
                 err.print("> ");
-                shouldContinue = handle(ctx, scanner.nextLine());
-            }
+                try {
+                    shouldContinue = handle(ctx, scanner.nextLine());
+                } catch (NoSuchElementException e) {
+                    shouldContinue = false;
+                }
+            } while (shouldContinue);
         }
     }
 
